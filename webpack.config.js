@@ -1,13 +1,13 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { from } = require("webpack-sources/lib/CompatSource");
 
 module.exports = (env, option) => {
   return {
-    entry: "./src/main.js",
+    entry: "./src/index.js",
     output: {
-      filename: "main.js",
+      filename: "index.js",
+      clean: true,
     },
     resolve: {
       extensions: [".js", ".jsx"],
@@ -27,7 +27,18 @@ module.exports = (env, option) => {
         },
         {
           test: /\.css/,
-          use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+          use: [
+            MiniCssExtractPlugin.loader,
+            "css-loader",
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: ["autoprefixer"],
+                },
+              },
+            },
+          ],
         },
       ],
     },
