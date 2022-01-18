@@ -1,6 +1,7 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = (env, option) => {
   return {
@@ -52,6 +53,10 @@ module.exports = (env, option) => {
       new CopyPlugin({
         patterns: [{ from: "static" }],
       }),
+      new RefreshWebpackPlugin(),
     ],
+    devServer: {
+      hot: true,
+    },
   };
 };
